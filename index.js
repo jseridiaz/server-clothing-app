@@ -3,7 +3,7 @@ const express = require('express')
 const cors = require('cors')
 const { calculateOrderAmount } = require('./utils/calculateOrderAmount')
 const app = express()
-app.use(cors())
+app.use(cors({ origin: 'https://server-clothing-app.vercel.app' }))
 // This is your test secret API key.
 const stripe = require('stripe')(process.env.SECRET_KEY_STRIPE)
 
@@ -16,7 +16,6 @@ app.get('/create-payment-intent', async (req, res) => {
 app.post('/create-payment-intent', async (req, res) => {
   try {
     const { items } = req.body
-    console.log(calculateOrderAmount(items))
 
     // Create a PaymentIntent with the order amount and currency
     const paymentIntent = await stripe.paymentIntents.create({
