@@ -3,7 +3,7 @@ const express = require('express')
 const cors = require('cors')
 const { calculateOrderAmount } = require('./utils/calculateOrderAmount')
 const app = express()
-app.use(cors({ origin: 'https://server-clothing-app.vercel.app' }))
+app.use(cors())
 // This is your test secret API key.
 const stripe = require('stripe')(process.env.SECRET_KEY_STRIPE)
 
