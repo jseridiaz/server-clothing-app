@@ -3,7 +3,13 @@ const express = require('express')
 const cors = require('cors')
 const { calculateOrderAmount } = require('./utils/calculateOrderAmount')
 const app = express()
-app.use(cors())
+const corsOptions = {
+  origin: 'https://proyect-react-advanced-clothes-ecommerce.vercel.app', // Tu frontend en producción
+  methods: 'GET,POST',
+  allowedHeaders: 'Content-Type, Authorization'
+}
+
+app.use(cors(corsOptions))
 const production = true
 // This is your test secret API key.
 const stripe = require('stripe')(
