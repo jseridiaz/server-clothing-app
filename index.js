@@ -9,6 +9,8 @@ const corsOptions = {
   allowedHeaders: 'Content-Type, Authorization'
 }
 
+app.use(express.json())
+app.use(express.static('public'))
 app.use(cors(corsOptions))
 const production = true
 // This is your test secret API key.
@@ -17,8 +19,6 @@ const stripe = require('stripe')(
     ? process.env.SECRET_KEY_STRIPE_PRODUCTION
     : process.env.SECRET_KEY_STRIPE
 )
-app.use(express.static('public'))
-app.use(express.json())
 
 app.get('/create-payment-intent', async (req, res) => {
   try {
