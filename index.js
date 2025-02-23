@@ -4,14 +4,18 @@ const cors = require('cors')
 const { calculateOrderAmount } = require('./utils/calculateOrderAmount')
 const app = express()
 app.use(cors())
+const production = true
 // This is your test secret API key.
-const stripe = require('stripe')(process.env.SECRET_KEY_STRIPE)
-
+const stripe = require('stripe')(
+  production
+    ? process.env.SECRET_KEY_STRIPE_PRODUCTION
+    : process.env.SECRET_KEY_STRIPE
+)
 app.use(express.static('public'))
 app.use(express.json())
 
 app.get('/create-payment-intent', async (req, res) => {
-  res.status(200).json('goten')
+  res.status(200).json('goten in production')
 })
 app.post('/create-payment-intent', async (req, res) => {
   try {
