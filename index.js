@@ -8,7 +8,7 @@ app.use(express.json())
 app.use(express.static('public'))
 app.use(
   cors({
-    origin: 'https://proyect-react-advanced-clothes-ecommerce.vercel.app',
+    origin: 'https://proyect-react-advanced-clothes-ecommerce.vercel.app/cart',
     methods: 'GET,POST,OPTIONS',
     allowedHeaders: 'Content-Type,Authorization'
   })
