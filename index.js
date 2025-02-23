@@ -15,7 +15,11 @@ app.use(express.static('public'))
 app.use(express.json())
 
 app.get('/create-payment-intent', async (req, res) => {
-  res.status(200).json('goten in production')
+  try {
+    res.status(200).json('goten in production')
+  } catch (error) {
+    console.log(error)
+  }
 })
 app.post('/create-payment-intent', async (req, res) => {
   try {
