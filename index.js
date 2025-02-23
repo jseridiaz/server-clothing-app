@@ -4,15 +4,14 @@ const cors = require('cors')
 const { calculateOrderAmount } = require('./utils/calculateOrderAmount')
 const app = express()
 app.use(express.json())
-
+const corsOptions = {
+  origin: 'https://proyect-react-advanced-clothes-ecommerce.vercel.app',
+  methods: 'GET,POST,OPTIONS',
+  allowedHeaders: 'Content-Type, Authorization'
+}
 app.use(express.static('public'))
-app.use(
-  cors({
-    origin: 'https://proyect-react-advanced-clothes-ecommerce.vercel.app/cart',
-    methods: 'GET,POST,OPTIONS',
-    allowedHeaders: 'Content-Type,Authorization'
-  })
-)
+app.use(cors(corsOptions))
+app.options('*', cors(corsOptions))
 const production = true
 // This is your test secret API key.
 const stripe = require('stripe')(
