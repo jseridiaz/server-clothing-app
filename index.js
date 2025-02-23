@@ -3,15 +3,16 @@ const express = require('express')
 const cors = require('cors')
 const { calculateOrderAmount } = require('./utils/calculateOrderAmount')
 const app = express()
-const corsOptions = {
-  origin: 'https://proyect-react-advanced-clothes-ecommerce.vercel.app', // Tu frontend en producción
-  methods: 'GET,POST',
-  allowedHeaders: 'Content-Type, Authorization'
-}
-
 app.use(express.json())
+
 app.use(express.static('public'))
-app.use(cors(corsOptions))
+app.use(
+  cors({
+    origin: 'https://proyect-react-advanced-clothes-ecommerce.vercel.app',
+    methods: 'GET,POST,OPTIONS',
+    allowedHeaders: 'Content-Type,Authorization'
+  })
+)
 const production = true
 // This is your test secret API key.
 const stripe = require('stripe')(
@@ -19,7 +20,9 @@ const stripe = require('stripe')(
     ? process.env.SECRET_KEY_STRIPE_PRODUCTION
     : process.env.SECRET_KEY_STRIPE
 )
-
+app.get('/test', (req, res) => {
+  res.status(200).json({ message: 'CORS working!' })
+})
 app.get('/create-payment-intent', async (req, res) => {
   try {
     res.status(200).json('goten in production')
