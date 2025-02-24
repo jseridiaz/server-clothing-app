@@ -3,15 +3,15 @@ const express = require('express')
 const cors = require('cors')
 const { calculateOrderAmount } = require('./utils/calculateOrderAmount')
 const app = express()
-app.use(express.json())
 const corsOptions = {
-  origin: 'https://proyect-react-advanced-clothes-ecommerce.vercel.app',
+  origin: '*',
   methods: 'GET,POST,OPTIONS',
   allowedHeaders: 'Content-Type, Authorization'
 }
 app.use(express.static('public'))
 app.use(cors(corsOptions))
 app.options('*', cors(corsOptions))
+app.use(express.json())
 const production = true
 // This is your test secret API key.
 const stripe = require('stripe')(
@@ -37,7 +37,7 @@ app.post('/create-payment-intent', async (req, res) => {
     const paymentIntent = await stripe.paymentIntents.create({
       amount: calculateOrderAmount(items),
       currency: 'eur',
-      payment_method_types: ['card', 'klarna', 'paypal', 'sepa_debit']
+      payment_method_types: ['card', 'klarna', 'sepa_debit']
       // In the latest version of the API, specifying the `automatic_payment_methods` parameter is optional because Stripe enables its functionality by default.
       // automatic_payment_methods: {
       //   enabled: true
