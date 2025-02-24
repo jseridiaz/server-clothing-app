@@ -37,7 +37,7 @@ app.post('/create-payment-intent', async (req, res) => {
     const paymentIntent = await stripe.paymentIntents.create({
       amount: calculateOrderAmount(items),
       currency: 'eur',
-      payment_method_types: ['card', 'klarna', 'sepa_debit']
+      payment_method_types: ['card', 'klarna']
       // In the latest version of the API, specifying the `automatic_payment_methods` parameter is optional because Stripe enables its functionality by default.
       // automatic_payment_methods: {
       //   enabled: true
